@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "light_background.pdf",
+      "filename" : "light_background-2.pdf",
       "idiom" : "universal"
     },
     {
@@ -28,8 +28,5 @@
   "info" : {
     "author" : "xcode",
     "version" : 1
-  },
-  "properties" : {
-    "preserves-vector-representation" : true
   }
 }
