@@ -7,3 +7,40 @@
 //
 
 import Foundation
+
+struct WeatherManager {
+    let weatherURL = "https://api.openweathermap.org/data/2.5/weather?appid=a8f5cbb0c5bc0f0c51236bb5a6497ab8&units=metric"
+    
+    func fetchWeather(cityName: String) {
+        let urlString = "\(weatherURL)&q=\(cityName)"
+        print(urlString)
+        performRequest(urlString: urlString)
+    }
+    
+    func performRequest(urlString: String) {
+        if let url = URL(string: urlString) {
+            
+            // Create a URL session, with a default configuration, to do the networking
+            let session = URLSession(configuration: .default)
+            
+            // completion handler is a function,
+            let task = session.dataTask(with: url, completionHandler: handle(data: response: error: ))
+            
+            // Newly initiliazed tasks begin in a suspended state, so this means start pretty much
+            task.resume()
+        }
+    }
+    
+    // this is the method which will be used as a completion handler
+    func handle(data: Data?, response: URLResponse?, error: Error?) {
+        if error != nil {
+            print(error!)
+            return
+        }
+        
+        if let safeData = data {
+            let dataString = String(data: safeData, encoding: .utf8 )
+            print(dataString)
+        }
+    }
+}
