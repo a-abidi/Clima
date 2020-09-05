@@ -24,23 +24,20 @@ struct WeatherManager {
             let session = URLSession(configuration: .default)
             
             // completion handler is a function,
-            let task = session.dataTask(with: url, completionHandler: handle(data: response: error: ))
+            let task = session.dataTask(with: url) { (data, response, error) in
+                if error != nil {
+                    print(error!)
+                    return
+                }
+                
+                if let safeData = data {
+                    let dataString = String(data: safeData, encoding: .utf8 )
+                    print(dataString)
+                }
+            }
             
             // Newly initiliazed tasks begin in a suspended state, so this means start pretty much
             task.resume()
-        }
-    }
-    
-    // this is the method which will be used as a completion handler
-    func handle(data: Data?, response: URLResponse?, error: Error?) {
-        if error != nil {
-            print(error!)
-            return
-        }
-        
-        if let safeData = data {
-            let dataString = String(data: safeData, encoding: .utf8 )
-            print(dataString)
         }
     }
 }
