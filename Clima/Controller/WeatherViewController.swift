@@ -53,9 +53,16 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
     }
     
     func didUpdateWeather(_ weatherManager: WeatherManager, _ weather: WeatherModel) {
-        print(weather.temperature)
+        // This function is called from a completion handler, so if we change something in the UI then the app will look like it's frozen. We need to call it from the main thread instead:
+        DispatchQueue.main.async {
+            // must add self since it's a closure
+            self.temperatureLabel.text = weather.temperatureString
+        }
     }
     
+    func didFailWithError(_ error: Error) {
+        print(error)
+    }
 
 }
 
