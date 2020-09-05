@@ -57,6 +57,8 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
         DispatchQueue.main.async {
             // must add self since it's a closure
             self.temperatureLabel.text = weather.temperatureString
+            self.conditionImageView.image = UIImage(systemName: weather.conditionName)
+            self.cityLabel.text = weather.cityName
         }
     }
     
