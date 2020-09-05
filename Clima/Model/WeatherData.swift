@@ -9,18 +9,18 @@
 import Foundation
 
 // Decodable means that the weather data is a type which can decode itself from an external respresentaiton (in this case, JSON)
-struct WeatherData: Decodable {
+struct WeatherData: Codable {
     let name: String
     let main: Main
     let weather: [Weather]
 }
 
-struct Weather: Decodable {
+struct Weather: Codable {
     let description: String
     let id: Int
 }
 
-struct Main: Decodable {
+struct Main: Codable {
     let temp: Double
     
 }
