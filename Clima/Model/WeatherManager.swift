@@ -32,12 +32,24 @@ struct WeatherManager {
                 
                 if let safeData = data {
                     let dataString = String(data: safeData, encoding: .utf8 )
-                    print(dataString)
+                    self.parseJSON(weatherData: safeData)
                 }
             }
             
             // Newly initiliazed tasks begin in a suspended state, so this means start pretty much
             task.resume()
         }
+    }
+    
+    // Parameter type is Data since that is the format of what we get back from our session.dataTask
+    func parseJSON (weatherData : Data) {
+        let decoder = JSONDecoder()
+        do {
+            let decodedData = try decoder.decode(WeatherData.self, from: weatherData)
+            print(decodedData.weather[0].description)
+        } catch {
+            print(error)
+        }
+        
     }
 }
